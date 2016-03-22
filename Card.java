@@ -5,7 +5,7 @@ import java.util.*;
  * Created by cryst on 3/13/2016.
  */
 public class Card {
-    //tracks
+    //
     private String name;
     private String suit;
     private String value;

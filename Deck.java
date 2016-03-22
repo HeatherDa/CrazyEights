@@ -7,18 +7,36 @@ import java.util.*;
 public class Deck {
 
     private LinkedList<Card>theDeck;
+    private Card lastcard;
+    private ArrayList<String> values=new ArrayList<>(Arrays.asList("Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"));
+    private ArrayList<String>suits=new ArrayList<>(Arrays.asList(String.valueOf((char) 9824), String.valueOf((char) 9827), String.valueOf((char)9829), String.valueOf((char)9830)));
 
     Deck(){
-        ArrayList<String> values=new ArrayList<>(Arrays.asList("Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"));
-        ArrayList<Character>suits=new ArrayList<>(Arrays.asList((char) 9824, (char) 9827, (char)9829, (char)9830));
-        for (Character suit:suits){
-            String name=String.valueOf(suit);
+
+
+        for (String suit:suits){
             for (String value:values){
-                Card c=new Card(name, value);
+                Card c=new Card(suit, value);
                 c.setColor();
                 theDeck.add(c);
             }
         }
+    }
+
+    public void setLastcard(Card lastcard) {
+        this.lastcard = lastcard;
+    }
+
+    public Card getLastcard() {
+        return lastcard;
+    }
+
+    public ArrayList<String> getSuits() {
+        return suits;
+    }
+
+    public ArrayList<String> getValues() {
+        return values;
     }
 
     //method to deal a card.  Chooses random card from deck by index and removes it.

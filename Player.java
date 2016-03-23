@@ -30,19 +30,42 @@ public class Player {
         System.out.println("To make a play, type the number in front of the card and hit enter.  Hit enter without typing to draw a card.");
         String next=scan.nextLine();
         if (next.equals("")){
-            deck.dealcard();
+            this.hand.add(deck.dealcard());
             play=deck.getLastcard();
         }else{
             Card choice=this.hand.get(Integer.parseInt(next));
-            while(play==null) {
-                if (plays.contains(choice)) {
+
+            do{         //MUST ADD OPTION FOR CHANGING SUIT
+                if (plays.contains(choice)&&(choice.getValue().equals("8"))){
+                    play=choice;
+                    System.out.println("What suit do you want to change to? Select number and hit enter.");
+                    int count=0;
+                    for(String s:deck.getSuits()){
+                        System.out.println(count+"\t"+s);
+                        count++;
+                    }
+
+                    int newsuitnum=scan.nextInt();
+                    String newsuit=(deck.getSuits()).get(newsuitnum);
+                    deck.setLastcard(play);
+                    deck.setNewsuit(newsuit);//change suit of last card
+                    this.hand.remove(play);
+                    last=deck.getLastcard();
+                    System.out.println("The new suit is "+last.getSuit());
+                }else if (plays.contains(choice)) {
                     play = choice;
                     this.hand.remove(choice);
                 } else {
-                    System.out.println("That is not a valid play.");
-                    break;
+                    System.out.println("That is not a valid play.  Try again.");
+                    next=scan.nextLine();
+                    if (next.equals("")){
+                        this.hand.add(deck.dealcard());
+                        play=deck.getLastcard();
+                    }else {
+                        choice = this.hand.get(Integer.parseInt(next));
+                    }
                 }
-            }
+            }while(play==null);
         }
         return play;
     }
@@ -60,31 +83,27 @@ public class Player {
     public int getSize(){
         return hand.size();
     }
-    public LinkedList<Card> getHand(){
-        return this.hand;
+    public String getHand(){
+        String strHand="";
+        for (Card c:this.hand){
+            strHand=strHand+c.getValue()+" of "+c.getSuit()+" ";
+        }
+        return strHand;
     }
     public LinkedList<Card> playable(Deck deck){//doesn't seem to be adding any cards to list
         LinkedList<Card>playcards=new LinkedList<>();
         Card last=deck.getLastcard();
-        int matchval=0;
-        int matchsuit=0;
-        int eight=0;
-        ArrayList<Card> mval=new ArrayList<>();
-        ArrayList<Card>msuit=new ArrayList<>();
-        ArrayList<Card>eig=new ArrayList<>();
         for (Card card:this.hand) {
+            String cardvalue=card.getValue();
+            String lvalue=last.getValue();
             if ((card.getValue().equals(last.getValue())) && (!last.getValue().equals("8"))) {
-                matchval = matchval++;
-                mval.add(card);
+                playcards.add(card);
             }else if ((card.getSuit().equals(last.getSuit())) && (!card.getValue().equals("8"))) {
-                matchsuit = matchsuit++;
-                msuit.add(card);
+                playcards.add(card);
             }else if (card.getValue().equals("8")) {
-                eight = eight++;
-                eig.add(card);
+                playcards.add(card);
             }
         }
-
         return playcards;
     }
 }

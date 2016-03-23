@@ -16,47 +16,49 @@ public class Computer{
     public Card getPlay(Deck deck){
         Card last=deck.getLastcard();
         Card play=null;
-        int matchval=0;
-        int matchsuit=0;
-        int eight=0;
         ArrayList<Card>mval=new ArrayList<>();
         ArrayList<Card>msuit=new ArrayList<>();
         ArrayList<Card>eig=new ArrayList<>();
         for (Card card:hand) {
             if ((card.getValue().equals(last.getValue())) && (!last.getValue().equals("8"))) {
-                matchval = matchval++;
+
                 mval.add(card);
             }else if ((card.getSuit().equals(last.getSuit())) && (!card.getValue().equals("8"))) {
-                matchsuit = matchsuit++;
+
                 msuit.add(card);
             }else if (card.getValue().equals("8")) {
-                eight = eight++;
+
                 eig.add(card);
             }
         }
-        if((matchval!=0)&&(matchsuit!=0)) {
+        if((mval.size()!=0)&&(msuit.size()!=0)) {
             //compare totalSuit for matching numbercard and totalSuit for last.getSuit()
             for (Card c : mval) {
-                if (totalSuit(hand, c.getSuit()) > matchsuit) {
+                if (totalSuit(hand, c.getSuit()) > msuit.size()) {
                     play = c;
                     this.hand.remove(c);//remove the card from the hand after playing it
-                } else if (totalSuit(hand, c.getSuit()) < matchsuit) {
+                } else if (totalSuit(hand, c.getSuit()) < msuit.size()) {
                     play = msuit.get(0);
                     this.hand.remove(c);//remove the card from the hand after playing it
                 }
             }
-        }else if((matchval==0)&&(matchsuit>0)){
+        }else if((mval.size()==0)&&(msuit.size()!=0)){
             play = msuit.get(0);
             this.hand.remove(play);
-        }else if((matchval>0)&&(matchsuit==0)){
+        }else if((mval.size()>0)&&(msuit.size()==0)){
             play = mval.get(0);
             this.hand.remove(play);
-        }else if ((matchval==0)&&(matchsuit==0)&&(eight>0)){//if the only move available is an eight
+        }else if ((mval.size()==0)&&(msuit.size()==0)&&(eig.size()>0)){//if the only move available is an eight
+            play=eig.get(0);
+            System.out.println("Computer plays "+play.getName());
+            deck.setLastcard(play);
             deck.setNewsuit(biggestSuit(this.hand));//change suit of last card
-            play = deck.getLastcard();//return new "last card"
             this.hand.remove(play);
-        }else if ((matchval==0)&&(matchsuit==0)&&(eight==0)){//if no moves available
-            deck.dealcard();
+            last=deck.getLastcard();
+            System.out.println("The new suit is "+last.getSuit());//color new suit correctly?
+        }else if ((mval.size()==0)&&(msuit.size()==0)&&(eig.size()==0)){//if no moves available
+            this.hand.add(deck.dealcard());
+            play=deck.getLastcard();
         }
         return play;
     }
@@ -66,7 +68,7 @@ public class Computer{
     }
 
     public int totalSuit(LinkedList<Card> hand, String suit){//discover how many cards of each suit are present in the hand
-        ArrayList<Integer> totalsuit=new ArrayList<>();
+        System.out.println("totalSuit");
         String spade=String.valueOf((char) 9824);
         int st=0;
         String club=String.valueOf((char) 9827);
@@ -100,7 +102,7 @@ public class Computer{
         return out; //returns total cards of suit in hand
     }
 
-    public HashMap<String, Card> values() {
+    /*public HashMap<String, Card> values() {
         HashMap<String, Card>handvalues=new HashMap<>();
         for (Card b:hand){
             if (!handvalues.keySet().contains(b.getValue())){
@@ -108,26 +110,22 @@ public class Computer{
             }
         }
         return handvalues;
-    }
+    }*/
 
     public int getSize(){
         return hand.size();
     }
     public String biggestSuit(LinkedList<Card> hand){
-        ArrayList<Integer> totalsuit=new ArrayList<>();
         HashMap<String,Integer>suits=new HashMap<>();
         String spade=String.valueOf((char) 9824);
         int st=0;
-        suits.put(spade,st);
         String club=String.valueOf((char) 9827);
         int ct=0;
-        suits.put(club,ct);
         String heart=String.valueOf((char)9829);
         int ht=0;
-        suits.put(heart,ht);
         String diamond=String.valueOf((char)9830);
         int dt=0;
-        suits.put(diamond,dt);
+
         for (Card a:hand){
             if(a.getSuit().equals(String.valueOf((char) 9824))) {
                 st++;
@@ -139,6 +137,10 @@ public class Computer{
                 dt++;
             }
         }
+        suits.put(spade,st);
+        suits.put(club,ct);
+        suits.put(heart,ht);
+        suits.put(diamond,dt);
 
         String out = null;
         int big=0;
@@ -149,5 +151,12 @@ public class Computer{
             }
         }
         return out;
+    }
+    public String getHand(){
+        String strHand="";
+        for (Card c:this.hand){
+            strHand=strHand+c.getName()+" ";
+        }
+        return strHand;
     }
 }

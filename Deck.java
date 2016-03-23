@@ -26,7 +26,7 @@ public class Deck {
     }
 
     public Card getLastcard() {
-        return lastcard;
+        return this.lastcard;
     }
 
     public ArrayList<String> getSuits() {
@@ -45,7 +45,7 @@ public class Deck {
     public Card dealcard(){
         //random number generated in range theDeck.size
         Random num = new Random();
-        int r = num.nextInt(theDeck.size());//why+1?
+        int r = num.nextInt(theDeck.size());
         Card card=theDeck.remove(r);
         return card;
     }

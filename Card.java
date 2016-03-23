@@ -19,6 +19,9 @@ public class Card {
     public String getName() {
         return name;
     }
+    public void setSuit(String suit){
+        this.suit=suit;
+    }
     public String getSuit(){
         return suit;
     }

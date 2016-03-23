@@ -10,23 +10,28 @@ public class CrazyEights {
         Deck deck = new Deck();  //initialize deck
         System.out.println("What is your name?");
         String playname = scan.nextLine();
-        Player player = new Player(playname);
-        Computer computer = new Computer();
-        for (int i = 0; i > 6; i++) {  //initialize hands
-            player.setHand(deck.dealcard());
-            computer.setHand(deck.dealcard());
-        }
-        //initialize last card useing setLastcard(dealcard())
-        //if size.computerhand!=0 && size.playerhand!=0
-        //player play card
-        //setLastcard(getPlayercard())
-        //if size.playerhand ==0
-        //sout player wins
-        //else
-        //computer play card
-        //setLastcard(getComputercard())
-        //if size.computerhand==0
-        //sout computer wins
+        Player pers = new Player(playname);
+        Computer comp=new Computer();
+        dealhand(pers, comp,deck);
+        deck.setLastcard(deck.dealcard());//set first card
 
+        while((comp.getSize()!=0)&&(pers.getSize()!=0)){//check for hands being empty
+            deck.setLastcard(pers.getPlay(deck));
+            if(pers.getSize()!=0) {//check for playerhand behing empty
+                deck.setLastcard(comp.getPlay(deck));
+            }
+        }
+        if (comp.getSize()==0){
+            System.out.println("The Computer has won.");
+        }else if (pers.getSize()==0){
+            System.out.println("Congratulations, "+playname+".  You won!");
+        }
+    }
+    public static void dealhand(Player player1, Computer player2, Deck deck){
+
+        for (int i=0;i<5;i++){//deals 5 cards to each player
+            player1.setHand(deck.dealcard());
+            player2.setHand(deck.dealcard());
+        }
     }
 }

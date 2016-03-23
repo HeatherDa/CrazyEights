@@ -34,6 +34,10 @@ public class Deck {
     public ArrayList<String> getSuits() {
         return suits;
     }
+    public void setNewsuit(String suit){
+        lastcard.setSuit(suit);
+
+    }
 
     public ArrayList<String> getValues() {
         return values;

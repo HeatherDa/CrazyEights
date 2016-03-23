@@ -6,14 +6,12 @@ import java.util.*;
  */
 public class Deck {
 
-    private LinkedList<Card>theDeck;
+    private LinkedList<Card>theDeck=new LinkedList<>();
     private Card lastcard;
     private ArrayList<String> values=new ArrayList<>(Arrays.asList("Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"));
     private ArrayList<String>suits=new ArrayList<>(Arrays.asList(String.valueOf((char) 9824), String.valueOf((char) 9827), String.valueOf((char)9829), String.valueOf((char)9830)));
 
     Deck(){
-
-
         for (String suit:suits){
             for (String value:values){
                 Card c=new Card(suit, value);
@@ -47,7 +45,7 @@ public class Deck {
     public Card dealcard(){
         //random number generated in range theDeck.size
         Random num = new Random();
-        int r = num.nextInt(theDeck.size()+1);//why+1?
+        int r = num.nextInt(theDeck.size());//why+1?
         Card card=theDeck.remove(r);
         return card;
     }

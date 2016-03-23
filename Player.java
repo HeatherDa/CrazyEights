@@ -25,12 +25,13 @@ public class Player {
         System.out.println("The top card is "+name+".");
         System.out.println("You have the following cards: ");
         for (int i=0; i<hand.size();i++){
-            System.out.println(i+"\t"+hand.get(i));
+            System.out.println(i+"\t"+(hand.get(i)).getName());
         }
         System.out.println("To make a play, type the number in front of the card and hit enter.  Hit enter without typing to draw a card.");
         String next=scan.nextLine();
         if (next.equals("")){
             deck.dealcard();
+            play=deck.getLastcard();
         }else{
             Card choice=this.hand.get(Integer.parseInt(next));
             while(play==null) {
@@ -39,7 +40,7 @@ public class Player {
                     this.hand.remove(choice);
                 } else {
                     System.out.println("That is not a valid play.");
-                    continue;
+                    break;
                 }
             }
         }
@@ -48,12 +49,6 @@ public class Player {
 
     public void setHand(Card c) {
         hand.add(c);
-    }
-
-    public Card nextcard(){
-        Card play = null;
-
-        return play;
     }
 
     public void writeHand(){
@@ -68,7 +63,7 @@ public class Player {
     public LinkedList<Card> getHand(){
         return this.hand;
     }
-    public LinkedList<Card> playable(Deck deck){
+    public LinkedList<Card> playable(Deck deck){//doesn't seem to be adding any cards to list
         LinkedList<Card>playcards=new LinkedList<>();
         Card last=deck.getLastcard();
         int matchval=0;
@@ -77,7 +72,7 @@ public class Player {
         ArrayList<Card> mval=new ArrayList<>();
         ArrayList<Card>msuit=new ArrayList<>();
         ArrayList<Card>eig=new ArrayList<>();
-        for (Card card:hand) {
+        for (Card card:this.hand) {
             if ((card.getValue().equals(last.getValue())) && (!last.getValue().equals("8"))) {
                 matchval = matchval++;
                 mval.add(card);

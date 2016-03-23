@@ -33,7 +33,7 @@ public class Card {
         String ANSI_black="\u001B[30m";
         String ANSI_red="\u001B[31m";
         String ANSI_reset_color="\u001B[0m";
-        if (this.suit.equals(String.valueOf(9824))||this.suit.equals(String.valueOf(9827))){
+        if (this.suit.equals(String.valueOf(9824))||this.suit.equals(String.valueOf(9827))){ //not working
             this.name=ANSI_black+this.name+ANSI_reset_color;
         }else{
             this.name=ANSI_red+this.name+ANSI_reset_color;

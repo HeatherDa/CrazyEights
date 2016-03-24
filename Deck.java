@@ -29,23 +29,9 @@ public class Deck {
     }
 
     public ArrayList<String> getSuits() {
-        String ANSI_black="\u001B[30m";
-        String ANSI_red="\u001B[31m";
-        String ANSI_reset_color="\u001B[0m";
-        String spade=String.valueOf((char) 9824);
-        String club=String.valueOf((char) 9827);
-        for(String suit:suits){
-            if (suit.equals(spade)||suit.equals(club)){
-                suit=ANSI_black+suit+ANSI_reset_color;
-                suits.add(suit);
-            }else{
-                suit=ANSI_red+suit+ANSI_reset_color;
-                suits.add(suit);
-            }
-        }
         return suits;
     }
-    public void setNewsuit(String suit){
+    public void setNewsuit(String suit){//changes suit if 8 is played
         lastcard.setSuit(suit);
 
     }

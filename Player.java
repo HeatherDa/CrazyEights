@@ -27,7 +27,7 @@ public class Player {
         for (int i=0; i<hand.size();i++){
             System.out.println(i+"\t"+(hand.get(i)).getName());
         }
-        System.out.println("To make a play, type the number in front of the card and hit enter.  Hit enter without typing to draw a card.");
+        System.out.println("\nTo make a play, type the number in front of the card and hit enter.  Hit enter without typing to draw a card.");
         String next=scan.nextLine();
         if (next.equals("")){
             this.hand.add(deck.dealcard());
@@ -35,7 +35,7 @@ public class Player {
         }else{
             Card choice=this.hand.get(Integer.parseInt(next));
 
-            do{         //MUST ADD OPTION FOR CHANGING SUIT
+            do{
                 if (plays.contains(choice)&&(choice.getValue().equals("8"))){
                     play=choice;
                     System.out.println("What suit do you want to change to? Select number and hit enter.");
@@ -45,10 +45,10 @@ public class Player {
                     String ANSI_reset_color="\u001B[0m";
                     for(String s:deck.getSuits()){
                         if((s.equals(String.valueOf((char) 9824)))||s.equals(String.valueOf((char) 9827))){
-                            System.out.println(ANSI_black+s+ANSI_reset_color);
+                            System.out.println(count+"\t"+ANSI_black+s+ANSI_reset_color);
                             count++;
                         }else {
-                            System.out.println(ANSI_red + s + ANSI_reset_color);
+                            System.out.println(count+"\t"+ANSI_red + s + ANSI_reset_color);
                             count++;
                         }
                     }
@@ -86,7 +86,7 @@ public class Player {
         return hand.size();
     }
 
-    public LinkedList<Card> playable(Deck deck){//doesn't seem to be adding any cards to list
+    public LinkedList<Card> playable(Deck deck){
         LinkedList<Card>playcards=new LinkedList<>();
         Card last=deck.getLastcard();
         for (Card card:this.hand) {

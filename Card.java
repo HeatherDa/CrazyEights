@@ -23,8 +23,6 @@ public class Card {
         String ANSI_reset_color="\u001B[0m";
         String spade=String.valueOf((char) 9824);
         String club=String.valueOf((char) 9827);
-        String heart=String.valueOf((char)9829);
-        String diamond=String.valueOf((char)9830);
         if (this.suit.equals(spade)||this.suit.equals(club)){
             this.name=ANSI_blue+this.value+ANSI_reset_color+" of "+ANSI_black+this.suit+ANSI_reset_color;
         }else{
@@ -36,18 +34,7 @@ public class Card {
 
         this.suit=suit;
     }
-    public void setSuitColor(){
-        String ANSI_black="\u001B[30m";
-        String ANSI_red="\u001B[31m";
-        String ANSI_reset_color="\u001B[0m";
-        String spade=String.valueOf((char) 9824);
-        String club=String.valueOf((char) 9827);
-        if (this.suit.equals(spade)||this.suit.equals(club)){
-            this.suit=ANSI_black+this.suit+ANSI_reset_color;
-        }else{
-            this.suit=ANSI_red+this.suit+ANSI_reset_color;
-        }
-    }
+
     public String getSuit(){
 
         return this.suit;

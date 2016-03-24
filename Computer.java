@@ -102,15 +102,6 @@ public class Computer{
         return out; //returns total cards of suit in hand
     }
 
-    /*public HashMap<String, Card> values() {
-        HashMap<String, Card>handvalues=new HashMap<>();
-        for (Card b:hand){
-            if (!handvalues.keySet().contains(b.getValue())){
-                handvalues.put(b.getValue(),b);
-            }
-        }
-        return handvalues;
-    }*/
 
     public int getSize(){
         return hand.size();

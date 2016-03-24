@@ -5,7 +5,6 @@ public class CrazyEights {
     public static void main(String[] args) {
         // write your code here
         Scanner scan = new Scanner(System.in);
-        int dealcards = 5;//number of cards dealt to each player
         Deck deck = new Deck();  //initialize deck
         System.out.println("What is your name?");
         String playname = scan.nextLine();

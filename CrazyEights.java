@@ -17,13 +17,8 @@ public class CrazyEights {
 
         while((comp.getSize()!=0)&&(pers.getSize()!=0)){//check for hands being empty
             deck.setLastcard(pers.getPlay(deck));
-            System.out.println("last card played: "+(deck.getLastcard()).getName());
             if(pers.getSize()!=0) {//check for playerhand behing empty
-                System.out.println("Computer hand: "+comp.getHand());
                 deck.setLastcard(comp.getPlay(deck));
-                System.out.println("Computer plays "+deck.getLastcard().getName());
-
-                System.out.println("Player hand: "+pers.getHand());
             }
         }
         if (comp.getSize()==0){

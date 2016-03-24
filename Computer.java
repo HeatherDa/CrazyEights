@@ -152,11 +152,5 @@ public class Computer{
         }
         return out;
     }
-    public String getHand(){
-        String strHand="";
-        for (Card c:this.hand){
-            strHand=strHand+c.getName()+" ";
-        }
-        return strHand;
-    }
+
 }

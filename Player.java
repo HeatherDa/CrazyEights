@@ -40,9 +40,17 @@ public class Player {
                     play=choice;
                     System.out.println("What suit do you want to change to? Select number and hit enter.");
                     int count=0;
+                    String ANSI_black="\u001B[30m";
+                    String ANSI_red="\u001B[31m";
+                    String ANSI_reset_color="\u001B[0m";
                     for(String s:deck.getSuits()){
-                        System.out.println(count+"\t"+s);
-                        count++;
+                        if((s.equals(String.valueOf((char) 9824)))||s.equals(String.valueOf((char) 9827))){
+                            System.out.println(ANSI_black+s+ANSI_reset_color);
+                            count++;
+                        }else {
+                            System.out.println(ANSI_red + s + ANSI_reset_color);
+                            count++;
+                        }
                     }
 
                     int newsuitnum=scan.nextInt();
@@ -74,28 +82,14 @@ public class Player {
         hand.add(c);
     }
 
-    public void writeHand(){
-        for (Card card:hand){
-            System.out.println(card.getName());
-        }
-    }
-
     public int getSize(){
         return hand.size();
     }
-    public String getHand(){
-        String strHand="";
-        for (Card c:this.hand){
-            strHand=strHand+c.getValue()+" of "+c.getSuit()+" ";
-        }
-        return strHand;
-    }
+
     public LinkedList<Card> playable(Deck deck){//doesn't seem to be adding any cards to list
         LinkedList<Card>playcards=new LinkedList<>();
         Card last=deck.getLastcard();
         for (Card card:this.hand) {
-            String cardvalue=card.getValue();
-            String lvalue=last.getValue();
             if ((card.getValue().equals(last.getValue())) && (!last.getValue().equals("8"))) {
                 playcards.add(card);
             }else if ((card.getSuit().equals(last.getSuit())) && (!card.getValue().equals("8"))) {

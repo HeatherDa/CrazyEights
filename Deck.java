@@ -15,7 +15,6 @@ public class Deck {
         for (String suit:suits){
             for (String value:values){
                 Card c=new Card(suit, value);
-                c.setColor();
                 theDeck.add(c);
             }
         }
@@ -30,15 +29,25 @@ public class Deck {
     }
 
     public ArrayList<String> getSuits() {
+        String ANSI_black="\u001B[30m";
+        String ANSI_red="\u001B[31m";
+        String ANSI_reset_color="\u001B[0m";
+        String spade=String.valueOf((char) 9824);
+        String club=String.valueOf((char) 9827);
+        for(String suit:suits){
+            if (suit.equals(spade)||suit.equals(club)){
+                suit=ANSI_black+suit+ANSI_reset_color;
+                suits.add(suit);
+            }else{
+                suit=ANSI_red+suit+ANSI_reset_color;
+                suits.add(suit);
+            }
+        }
         return suits;
     }
     public void setNewsuit(String suit){
         lastcard.setSuit(suit);
 
-    }
-
-    public ArrayList<String> getValues() {
-        return values;
     }
 
     //method to deal a card.  Chooses random card from deck by index and removes it.
@@ -50,4 +59,6 @@ public class Deck {
         return card;
     }
     //reshuffle method?  Generate new deck and remove cards in play from it.  Use if game runs out of cards (unlikely scenario.)
+
+
 }

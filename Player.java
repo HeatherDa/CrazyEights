@@ -75,9 +75,9 @@ public class Player {
                 playcards.add(card);
             }
         }
-        for(Card c:playcards) {
-            System.out.println(c.getName());
-        }
+        //for(Card c:playcards) { //for troubleshooting playable function
+        //    System.out.println(c.getName());
+        //}
         return playcards;
     }
     public Integer testInt(){

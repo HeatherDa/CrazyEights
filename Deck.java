@@ -47,7 +47,7 @@ public class Deck {
         discards.add(played);
         this.discards=discards;
     }
-    //reshuffle method?  Generate new deck and remove cards in play from it.  Use if game runs out of cards (unlikely scenario.)
+    //reshuffle method  Generate new deck and remove cards in play from it.  Use if game runs out of cards (unlikely scenario.)
     public void reshuffle(){
         this.theDeck=this.discards;
     }

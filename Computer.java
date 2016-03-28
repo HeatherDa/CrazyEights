@@ -52,7 +52,18 @@ public class Computer{
             deck.setNewsuit(biggestSuit(this.hand));//change suit of last card
             this.hand.remove(play);
             last=deck.getLastcard();
-            System.out.println("The new suit is "+last.getSuit());//color new suit correctly?
+
+            String ANSI_black = "\u001B[30m";
+            String ANSI_red = "\u001B[31m";
+            String ANSI_reset_color = "\u001B[0m";
+            String news;//holder for new suit
+            if ((last.getSuit().equals(String.valueOf((char) 9824))) || last.getSuit().equals(String.valueOf((char) 9827))) {
+                news=ANSI_black + last.getSuit() + ANSI_reset_color;
+            } else {
+                news=ANSI_red + last.getSuit() + ANSI_reset_color;
+            }
+
+            System.out.println("The new suit is "+news);
         }else if ((mval.size()==0)&&(msuit.size()==0)&&(eig.size()==0)){//if no moves available
             this.hand.add(deck.dealcard());
             play=deck.getLastcard();
@@ -65,7 +76,6 @@ public class Computer{
     }
 
     public int totalSuit(LinkedList<Card> hand, String suit){//discover how many cards of each suit are present in the hand
-        System.out.println("totalSuit");
         String spade=String.valueOf((char) 9824);
         int st=0;
         String club=String.valueOf((char) 9827);

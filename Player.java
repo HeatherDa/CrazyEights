@@ -67,7 +67,7 @@ public class Player {
         LinkedList<Card>playcards=new LinkedList<>();
         Card last=deck.getLastcard();
         for (Card card:this.hand) {
-            if ((card.getValue().equals(last.getValue())) && (!last.getValue().equals("8"))) {
+            if ((card.getValue().equals(last.getValue())) && (!last.getValue().equals("8"))) { //sometimes get error message citing this line, line 18, and line 17 in main.  Can't figure out why.
                 playcards.add(card);
             }else if ((card.getSuit().equals(last.getSuit())) && (!card.getValue().equals("8"))) {
                 playcards.add(card);

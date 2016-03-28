@@ -67,7 +67,7 @@ public class Player {
         LinkedList<Card>playcards=new LinkedList<>();
         Card last=deck.getLastcard();
         for (Card card:this.hand) {
-            if ((card.getValue().equals(last.getValue())) && (!last.getValue().equals("8"))) { //sometimes get error message citing this line, line 18, and line 17 in main.  Can't figure out why.
+            if ((card.getValue().equals(last.getValue())) && (!last.getValue().equals("8"))) { //sometimes get error message citing this line and line 18 of Player, and line 17 in CrazyEights.  Can't figure out why.
                 playcards.add(card);
             }else if ((card.getSuit().equals(last.getSuit())) && (!card.getValue().equals("8"))) {
                 playcards.add(card);
@@ -121,7 +121,14 @@ public class Player {
         deck.setNewsuit(newsuit);//change suit of last card
         this.hand.remove(play);
         Card last = deck.getLastcard();
-        System.out.println("The new suit is " + last.getSuit());
+        String news;//holder for new suit
+        if ((last.getSuit().equals(String.valueOf((char) 9824))) || last.getSuit().equals(String.valueOf((char) 9827))) {
+            news=ANSI_black + last.getSuit() + ANSI_reset_color;
+        } else {
+            news=ANSI_red + last.getSuit() + ANSI_reset_color;
+        }
+
+        System.out.println("The new suit is "+news);
         return play;
     }
 }

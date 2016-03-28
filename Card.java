@@ -1,9 +1,6 @@
 package com.Heather;
-import java.util.*;
 
-/**
- * Created by cryst on 3/13/2016.
- */
+
 public class Card {
     //
     private String name;

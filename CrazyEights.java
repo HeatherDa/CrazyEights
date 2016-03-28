@@ -15,8 +15,15 @@ public class CrazyEights {
 
         while((comp.getSize()!=0)&&(pers.getSize()!=0)){//check for hands being empty
             deck.setLastcard(pers.getPlay(deck));
+            if(deck.getSize()==0){
+                deck.reshuffle();
+            }
             if(pers.getSize()!=0) {//check for playerhand behing empty
+                deck.setDiscardPile(deck.getLastcard());
                 deck.setLastcard(comp.getPlay(deck));
+                if(deck.getSize()==0){
+                    deck.reshuffle();
+                }
             }
         }
         if (comp.getSize()==0){

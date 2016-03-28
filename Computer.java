@@ -2,9 +2,6 @@ package com.Heather;
 
 import java.util.*;
 
-/**
- * Created by cryst on 3/14/2016.
- */
 public class Computer{
     private LinkedList<Card> hand;
 
@@ -16,9 +13,9 @@ public class Computer{
     public Card getPlay(Deck deck){
         Card last=deck.getLastcard();
         Card play=null;
-        ArrayList<Card>mval=new ArrayList<>();
-        ArrayList<Card>msuit=new ArrayList<>();
-        ArrayList<Card>eig=new ArrayList<>();
+        ArrayList<Card>mval=new ArrayList<>();//cards that match previous value and are not eight
+        ArrayList<Card>msuit=new ArrayList<>();//cards that match previous suit and are not eight
+        ArrayList<Card>eig=new ArrayList<>();//cards who's value is eight
         for (Card card:hand) {
             if ((card.getValue().equals(last.getValue())) && (!last.getValue().equals("8"))) {
 

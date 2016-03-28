@@ -2,10 +2,6 @@ package com.Heather;
 
 import java.util.*;
 
-
-/**
- * Created by cryst on 3/14/2016.
- */
 public class Player {
     //Player's hand and error testing
     Scanner scan=new Scanner(System.in);
@@ -17,63 +13,44 @@ public class Player {
         this.hand=new LinkedList<>();
 
     }
-    public Card getPlay(Deck deck){
-        Card play=null;
-        LinkedList<Card>plays=playable(deck);
-        Card last=deck.getLastcard();
-        String name=last.getName();
-        System.out.println("The top card is "+name+".");
+    public Card getPlay(Deck deck) {
+        Card play = null;
+        LinkedList<Card> plays = playable(deck);
+        Card last = deck.getLastcard();
+        String name = last.getName();
+        System.out.println("The top card is " + name + ".");
         System.out.println("You have the following cards: ");
-        for (int i=0; i<hand.size();i++){
-            System.out.println(i+"\t"+(hand.get(i)).getName());
+        int numdraw = 0;
+        for (int i = 0; i < hand.size(); i++) {
+            System.out.println(i + "\t" + (hand.get(i)).getName());
+            numdraw = i;
         }
-        System.out.println("\nTo make a play, type the number in front of the card and hit enter.  Hit enter without typing to draw a card.");
-        String next=scan.nextLine();
-        if (next.equals("")){
+        System.out.println((numdraw + 1) + "\tDraw a Card.");
+
+        int next=testInt();
+        if (next == hand.size()) {
             this.hand.add(deck.dealcard());
-            play=deck.getLastcard();
-        }else{
-            Card choice=this.hand.get(Integer.parseInt(next));
+            play = deck.getLastcard();
+        } else {
+            Card choice = this.hand.get(next);
 
-            do{
-                if (plays.contains(choice)&&(choice.getValue().equals("8"))){
-                    play=choice;
-                    System.out.println("What suit do you want to change to? Select number and hit enter.");
-                    int count=0;
-                    String ANSI_black="\u001B[30m";
-                    String ANSI_red="\u001B[31m";
-                    String ANSI_reset_color="\u001B[0m";
-                    for(String s:deck.getSuits()){
-                        if((s.equals(String.valueOf((char) 9824)))||s.equals(String.valueOf((char) 9827))){
-                            System.out.println(count+"\t"+ANSI_black+s+ANSI_reset_color);
-                            count++;
-                        }else {
-                            System.out.println(count+"\t"+ANSI_red + s + ANSI_reset_color);
-                            count++;
-                        }
-                    }
-
-                    int newsuitnum=scan.nextInt();
-                    String newsuit=(deck.getSuits()).get(newsuitnum);
-                    deck.setLastcard(play);
-                    deck.setNewsuit(newsuit);//change suit of last card
-                    this.hand.remove(play);
-                    last=deck.getLastcard();
-                    System.out.println("The new suit is "+last.getSuit());
-                }else if (plays.contains(choice)) {
+            do {
+                if (plays.contains(choice) && (choice.getValue().equals("8"))) {
+                    play=anEight(choice, deck);
+                } else if (plays.contains(choice)) {
                     play = choice;
                     this.hand.remove(choice);
                 } else {
                     System.out.println("That is not a valid play.  Try again.");
-                    next=scan.nextLine();
-                    if (next.equals("")){
+                    next=testInt();
+                    if (next==hand.size()) {
                         this.hand.add(deck.dealcard());
-                        play=deck.getLastcard();
-                    }else {
-                        choice = this.hand.get(Integer.parseInt(next));
+                        play = deck.getLastcard();
+                    } else {
+                        choice = this.hand.get(next);
                     }
                 }
-            }while(play==null);
+            } while (play == null);
         }
         return play;
     }
@@ -98,7 +75,54 @@ public class Player {
                 playcards.add(card);
             }
         }
+        for(Card c:playcards) {
+            System.out.println(c.getName());
+        }
         return playcards;
+    }
+    public Integer testInt(){
+        boolean isint;
+        int next=0;
+        do {//test for correct input
+            System.out.println("\nTo make a play, type the number in front of the card and hit enter.");
+
+
+            if (scan.hasNextInt()) {
+                next = scan.nextInt();
+                isint = true;
+            } else {
+                System.out.println("Not a valid choice.  Please type an integer.");
+                isint = false;
+                scan.next();
+            }
+        } while (!(isint));
+        return next;
+    }
+    public Card anEight(Card play, Deck deck){
+        int count = 0;
+        String ANSI_black = "\u001B[30m";
+        String ANSI_red = "\u001B[31m";
+        String ANSI_reset_color = "\u001B[0m";
+
+        for (String s : deck.getSuits()) {//display list of suits to choose from
+            if ((s.equals(String.valueOf((char) 9824))) || s.equals(String.valueOf((char) 9827))) {
+                System.out.println(count + "\t" + ANSI_black + s + ANSI_reset_color);
+                count++;
+            } else {
+                System.out.println(count + "\t" + ANSI_red + s + ANSI_reset_color);
+                count++;
+            }
+        }
+        System.out.println("What suit do you want to change to? Select number and type enter.");
+
+        int newsuitnum = testInt();
+        String newsuit = (deck.getSuits()).get(newsuitnum);
+        deck.setLastcard(play);
+        deck.setNewsuit(newsuit);//change suit of last card
+        this.hand.remove(play);
+        Card last = deck.getLastcard();
+        System.out.println("The new suit is " + last.getSuit());
+        return play;
     }
 }
 
